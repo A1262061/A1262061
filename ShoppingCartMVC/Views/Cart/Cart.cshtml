@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ShoppingCartMVC.Models.Cart>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.P_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.P_price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.P_style)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.P_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.P_price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.P_style)
+        </td>
+        <td>
+            <p><a href="@Url.Action("Remove", "Cart", new { Id = Html.DisplayFor(modelItem => item.C_num) })" class="btn btn-danger">刪除購物車</a></p>
+
+        </td>
+    </tr>
+    }
+    <tr>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+            <p><a href="@Url.Action("CreateOrder","Order")" class="btn btn-primary">結帳</a></p>
+        </th>
+        <th></th>
+    </tr>
+</table>

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<ShoppingCartMVC.Models.Product>
+
+@foreach (var item in Model)
+{
+
+    <div class="col-md-3 col-sm-6 mb-4">
+        <a href="@Url.Action("ProductPage", "ProductPage", new {Id=item.P_num })">
+            <img class="img-fluid" src="~/@item.P_Image" alt="">
+        </a>
+    </div>
+
+
+
+
+}
+

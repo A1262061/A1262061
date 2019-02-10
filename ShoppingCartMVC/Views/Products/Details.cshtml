@@ -1,0 +1,82 @@
+﻿@model ShoppingCartMVC.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.P_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_Dimension)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_Dimension)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P_HasMultipleStyle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P_HasMultipleStyle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductActivity.PActivity_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductActivity.PActivity_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductClassify.PC_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductClassify.PC_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.P_num }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
