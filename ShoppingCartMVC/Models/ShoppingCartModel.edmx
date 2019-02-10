@@ -1,0 +1,805 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoppingCartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'sql.dbo.AboutUs' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="AboutUs">
+          <Key>
+            <PropertyRef Name="Tital" />
+            <PropertyRef Name="Contents" />
+          </Key>
+          <Property Name="Tital" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdminAccount">
+          <Key>
+            <PropertyRef Name="Ad_Id" />
+          </Key>
+          <Property Name="Ad_Id" Type="int" Nullable="false" />
+          <Property Name="Ad_Acc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ad_Pw" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="M_num" />
+            <PropertyRef Name="C_num" />
+            <PropertyRef Name="P_style" />
+          </Key>
+          <Property Name="M_num" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="C_num" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="P_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="P_price" Type="int" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="P_style" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactUs">
+          <Key>
+            <PropertyRef Name="C_num" />
+          </Key>
+          <Property Name="C_num" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Img" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="M_num" />
+          </Key>
+          <Property Name="M_num" Type="int" Nullable="false" />
+          <Property Name="M_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="M_Account" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="M_Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="M_Tel" Type="varchar" MaxLength="20" />
+          <Property Name="M_Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="M_Address" Type="nvarchar(max)" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'sql.dbo.News' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Tital" />
+            <PropertyRef Name="Contents" />
+          </Key>
+          <Property Name="Tital" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="O_num" />
+          </Key>
+          <Property Name="O_num" Type="int" Nullable="false" />
+          <Property Name="M_num" Type="int" Nullable="false" />
+          <Property Name="O_Date" Type="datetime" Nullable="false" />
+          <Property Name="O_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="O_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="O_Address" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders_Items">
+          <Key>
+            <PropertyRef Name="O_num" />
+            <PropertyRef Name="OItems_num" />
+          </Key>
+          <Property Name="O_num" Type="int" Nullable="false" />
+          <Property Name="OItems_num" Type="int" Nullable="false" />
+          <Property Name="P_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="P_Style" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="P_num" />
+          </Key>
+          <Property Name="P_num" Type="int" Nullable="false" />
+          <Property Name="P_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="P_Price" Type="int" Nullable="false" />
+          <Property Name="P_Description" Type="varchar(max)" />
+          <Property Name="P_Dimension" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="P_Image" Type="varchar(max)" />
+          <Property Name="P_HasMultipleStyle" Type="bit" Nullable="false" />
+          <Property Name="PActivity_num" Type="int" Nullable="false" />
+          <Property Name="PClassify_num" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductActivity">
+          <Key>
+            <PropertyRef Name="PActivity_num" />
+          </Key>
+          <Property Name="PActivity_num" Type="int" Nullable="false" />
+          <Property Name="PActivity_Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductClassify">
+          <Key>
+            <PropertyRef Name="PC_num" />
+          </Key>
+          <Property Name="PC_num" Type="int" Nullable="false" />
+          <Property Name="PC_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductStyle">
+          <Key>
+            <PropertyRef Name="P_num" />
+            <PropertyRef Name="PStyle_num" />
+          </Key>
+          <Property Name="P_num" Type="int" Nullable="false" />
+          <Property Name="PStyle_num" Type="int" Nullable="false" />
+          <Property Name="PStyle_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PStyle_Image" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="Score_ID" />
+          </Key>
+          <Property Name="Score_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="M_num" Type="int" />
+          <Property Name="P_num" Type="int" />
+        </EntityType>
+        <EntityType Name="SecondHandProduct">
+          <Key>
+            <PropertyRef Name="SHP_num" />
+          </Key>
+          <Property Name="SHP_num" Type="int" Nullable="false" />
+          <Property Name="SHP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHP_Price" Type="int" Nullable="false" />
+          <Property Name="SHP_Info" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SHP_Img" Type="nvarchar" MaxLength="50" />
+          <Property Name="SHP_SellerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHP_SellerPhone" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SecondHandProductRequire">
+          <Key>
+            <PropertyRef Name="SHPR_num" />
+          </Key>
+          <Property Name="SHPR_num" Type="int" Nullable="false" />
+          <Property Name="SHPR_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHPR_Price" Type="int" Nullable="false" />
+          <Property Name="SHPR_Info" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SHPR_Img" Type="nvarchar(max)" />
+          <Property Name="SHPR_SellerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SHPR_SellerPhone" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Score__M_num__5441852A">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="M_num" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="M_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__P_num__5535A963">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="P_num" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="P_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Item_Orders_New">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders_Items" Type="Self.Orders_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="O_num" />
+            </Principal>
+            <Dependent Role="Orders_Items">
+              <PropertyRef Name="O_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_New_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="M_num" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="M_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductActivity">
+          <End Role="ProductActivity" Type="Self.ProductActivity" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductActivity">
+              <PropertyRef Name="PActivity_num" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="PActivity_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductClassify">
+          <End Role="ProductClassify" Type="Self.ProductClassify" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductClassify">
+              <PropertyRef Name="PC_num" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="PClassify_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingCartModelStoreContainer">
+          <EntitySet Name="AdminAccount" EntityType="Self.AdminAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders_Items" EntityType="Self.Orders_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductActivity" EntityType="Self.ProductActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductClassify" EntityType="Self.ProductClassify" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStyle" EntityType="Self.ProductStyle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecondHandProduct" EntityType="Self.SecondHandProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecondHandProductRequire" EntityType="Self.SecondHandProductRequire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AboutUs" EntityType="Self.AboutUs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AboutUs].[Tital] AS [Tital], 
+    [AboutUs].[Contents] AS [Contents]
+    FROM [dbo].[AboutUs] AS [AboutUs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="News" EntityType="Self.News" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [News].[Tital] AS [Tital], 
+    [News].[Contents] AS [Contents]
+    FROM [dbo].[News] AS [News]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Score__M_num__5441852A" Association="Self.FK__Score__M_num__5441852A">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__P_num__5535A963" Association="Self.FK__Score__P_num__5535A963">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Item_Orders_New" Association="Self.FK_Orders_Item_Orders_New">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Orders_Items" EntitySet="Orders_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_New_Member" Association="Self.FK_Orders_New_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductActivity" Association="Self.FK_Product_ProductActivity">
+            <End Role="ProductActivity" EntitySet="ProductActivity" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductClassify" Association="Self.FK_Product_ProductClassify">
+            <End Role="ProductClassify" EntitySet="ProductClassify" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoppingCartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminAccount">
+          <Key>
+            <PropertyRef Name="Ad_Id" />
+          </Key>
+          <Property Name="Ad_Id" Type="Int32" Nullable="false" />
+          <Property Name="Ad_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ad_Pw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="M_num" />
+            <PropertyRef Name="C_num" />
+            <PropertyRef Name="P_style" />
+          </Key>
+          <Property Name="M_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="P_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="P_price" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="P_style" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactUs">
+          <Key>
+            <PropertyRef Name="C_num" />
+          </Key>
+          <Property Name="C_num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Img" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="M_num" />
+          </Key>
+          <Property Name="M_num" Type="Int32" Nullable="false" />
+          <Property Name="M_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="M_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="M_Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="M_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Score" Relationship="Self.FK__Score__M_num__5441852A" FromRole="Member" ToRole="Score" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_New_Member" FromRole="Member" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="O_num" />
+          </Key>
+          <Property Name="O_num" Type="Int32" Nullable="false" />
+          <Property Name="M_num" Type="Int32" Nullable="false" />
+          <Property Name="O_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="O_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="O_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="O_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Orders_New_Member" FromRole="Orders" ToRole="Member" />
+          <NavigationProperty Name="Orders_Items" Relationship="Self.FK_Orders_Item_Orders_New" FromRole="Orders" ToRole="Orders_Items" />
+        </EntityType>
+        <EntityType Name="Orders_Items">
+          <Key>
+            <PropertyRef Name="O_num" />
+            <PropertyRef Name="OItems_num" />
+          </Key>
+          <Property Name="O_num" Type="Int32" Nullable="false" />
+          <Property Name="OItems_num" Type="Int32" Nullable="false" />
+          <Property Name="P_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="P_Style" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Item_Orders_New" FromRole="Orders_Items" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="P_num" />
+          </Key>
+          <Property Name="P_num" Type="Int32" Nullable="false" />
+          <Property Name="P_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="P_Price" Type="Int32" Nullable="false" />
+          <Property Name="P_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="P_Dimension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="P_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="P_HasMultipleStyle" Type="Boolean" Nullable="false" />
+          <Property Name="PActivity_num" Type="Int32" Nullable="false" />
+          <Property Name="PClassify_num" Type="Int32" />
+          <NavigationProperty Name="Score" Relationship="Self.FK__Score__P_num__5535A963" FromRole="Product" ToRole="Score" />
+          <NavigationProperty Name="ProductActivity" Relationship="Self.FK_Product_ProductActivity" FromRole="Product" ToRole="ProductActivity" />
+          <NavigationProperty Name="ProductClassify" Relationship="Self.FK_Product_ProductClassify" FromRole="Product" ToRole="ProductClassify" />
+        </EntityType>
+        <EntityType Name="ProductActivity">
+          <Key>
+            <PropertyRef Name="PActivity_num" />
+          </Key>
+          <Property Name="PActivity_num" Type="Int32" Nullable="false" />
+          <Property Name="PActivity_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductActivity" FromRole="ProductActivity" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductClassify">
+          <Key>
+            <PropertyRef Name="PC_num" />
+          </Key>
+          <Property Name="PC_num" Type="Int32" Nullable="false" />
+          <Property Name="PC_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductClassify" FromRole="ProductClassify" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductStyle">
+          <Key>
+            <PropertyRef Name="P_num" />
+            <PropertyRef Name="PStyle_num" />
+          </Key>
+          <Property Name="P_num" Type="Int32" Nullable="false" />
+          <Property Name="PStyle_num" Type="Int32" Nullable="false" />
+          <Property Name="PStyle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PStyle_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="Score_ID" />
+          </Key>
+          <Property Name="Score_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="M_num" Type="Int32" />
+          <Property Name="P_num" Type="Int32" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__Score__M_num__5441852A" FromRole="Score" ToRole="Member" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Score__P_num__5535A963" FromRole="Score" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="SecondHandProduct">
+          <Key>
+            <PropertyRef Name="SHP_num" />
+          </Key>
+          <Property Name="SHP_num" Type="Int32" Nullable="false" />
+          <Property Name="SHP_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHP_Price" Type="Int32" Nullable="false" />
+          <Property Name="SHP_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHP_Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHP_SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHP_SellerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SecondHandProductRequire">
+          <Key>
+            <PropertyRef Name="SHPR_num" />
+          </Key>
+          <Property Name="SHPR_num" Type="Int32" Nullable="false" />
+          <Property Name="SHPR_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHPR_Price" Type="Int32" Nullable="false" />
+          <Property Name="SHPR_Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHPR_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SHPR_SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SHPR_SellerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AboutUs">
+          <Key>
+            <PropertyRef Name="Tital" />
+            <PropertyRef Name="Contents" />
+          </Key>
+          <Property Name="Tital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Tital" />
+            <PropertyRef Name="Contents" />
+          </Key>
+          <Property Name="Tital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Score__M_num__5441852A">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="M_num" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="M_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_New_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="M_num" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="M_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Item_Orders_New">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders_Items" Type="Self.Orders_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="O_num" />
+            </Principal>
+            <Dependent Role="Orders_Items">
+              <PropertyRef Name="O_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__P_num__5535A963">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="P_num" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="P_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductActivity">
+          <End Role="ProductActivity" Type="Self.ProductActivity" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductActivity">
+              <PropertyRef Name="PActivity_num" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="PActivity_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductClassify">
+          <End Role="ProductClassify" Type="Self.ProductClassify" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductClassify">
+              <PropertyRef Name="PC_num" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="PClassify_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingCartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminAccount" EntityType="Self.AdminAccount" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" />
+          <EntitySet Name="ContactUs" EntityType="Self.ContactUs" />
+          <EntitySet Name="Member" EntityType="Self.Member" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Orders_Items" EntityType="Self.Orders_Items" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ProductActivity" EntityType="Self.ProductActivity" />
+          <EntitySet Name="ProductClassify" EntityType="Self.ProductClassify" />
+          <EntitySet Name="ProductStyle" EntityType="Self.ProductStyle" />
+          <EntitySet Name="Score" EntityType="Self.Score" />
+          <EntitySet Name="SecondHandProduct" EntityType="Self.SecondHandProduct" />
+          <EntitySet Name="SecondHandProductRequire" EntityType="Self.SecondHandProductRequire" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="AboutUs" EntityType="Self.AboutUs" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <AssociationSet Name="FK__Score__M_num__5441852A" Association="Self.FK__Score__M_num__5441852A">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_New_Member" Association="Self.FK_Orders_New_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Item_Orders_New" Association="Self.FK_Orders_Item_Orders_New">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Orders_Items" EntitySet="Orders_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__P_num__5535A963" Association="Self.FK__Score__P_num__5535A963">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductActivity" Association="Self.FK_Product_ProductActivity">
+            <End Role="ProductActivity" EntitySet="ProductActivity" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductClassify" Association="Self.FK_Product_ProductClassify">
+            <End Role="ProductClassify" EntitySet="ProductClassify" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoppingCartModelStoreContainer" CdmEntityContainer="ShoppingCartEntities">
+          <EntitySetMapping Name="AdminAccount">
+            <EntityTypeMapping TypeName="ShoppingCartModel.AdminAccount">
+              <MappingFragment StoreEntitySet="AdminAccount">
+                <ScalarProperty Name="Ad_Id" ColumnName="Ad_Id" />
+                <ScalarProperty Name="Ad_Acc" ColumnName="Ad_Acc" />
+                <ScalarProperty Name="Ad_Pw" ColumnName="Ad_Pw" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="M_num" ColumnName="M_num" />
+                <ScalarProperty Name="C_num" ColumnName="C_num" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="P_price" ColumnName="P_price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="P_style" ColumnName="P_style" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactUs">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ContactUs">
+              <MappingFragment StoreEntitySet="ContactUs">
+                <ScalarProperty Name="C_num" ColumnName="C_num" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="M_num" ColumnName="M_num" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="M_Account" ColumnName="M_Account" />
+                <ScalarProperty Name="M_Password" ColumnName="M_Password" />
+                <ScalarProperty Name="M_Tel" ColumnName="M_Tel" />
+                <ScalarProperty Name="M_Gender" ColumnName="M_Gender" />
+                <ScalarProperty Name="M_Address" ColumnName="M_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="O_num" ColumnName="O_num" />
+                <ScalarProperty Name="M_num" ColumnName="M_num" />
+                <ScalarProperty Name="O_Date" ColumnName="O_Date" />
+                <ScalarProperty Name="O_Name" ColumnName="O_Name" />
+                <ScalarProperty Name="O_Phone" ColumnName="O_Phone" />
+                <ScalarProperty Name="O_Address" ColumnName="O_Address" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders_Items">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Orders_Items">
+              <MappingFragment StoreEntitySet="Orders_Items">
+                <ScalarProperty Name="O_num" ColumnName="O_num" />
+                <ScalarProperty Name="OItems_num" ColumnName="OItems_num" />
+                <ScalarProperty Name="P_name" ColumnName="P_name" />
+                <ScalarProperty Name="P_Style" ColumnName="P_Style" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="P_num" ColumnName="P_num" />
+                <ScalarProperty Name="P_Name" ColumnName="P_Name" />
+                <ScalarProperty Name="P_Price" ColumnName="P_Price" />
+                <ScalarProperty Name="P_Description" ColumnName="P_Description" />
+                <ScalarProperty Name="P_Dimension" ColumnName="P_Dimension" />
+                <ScalarProperty Name="P_Image" ColumnName="P_Image" />
+                <ScalarProperty Name="P_HasMultipleStyle" ColumnName="P_HasMultipleStyle" />
+                <ScalarProperty Name="PActivity_num" ColumnName="PActivity_num" />
+                <ScalarProperty Name="PClassify_num" ColumnName="PClassify_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductActivity">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ProductActivity">
+              <MappingFragment StoreEntitySet="ProductActivity">
+                <ScalarProperty Name="PActivity_num" ColumnName="PActivity_num" />
+                <ScalarProperty Name="PActivity_Name" ColumnName="PActivity_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductClassify">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ProductClassify">
+              <MappingFragment StoreEntitySet="ProductClassify">
+                <ScalarProperty Name="PC_num" ColumnName="PC_num" />
+                <ScalarProperty Name="PC_Name" ColumnName="PC_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStyle">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ProductStyle">
+              <MappingFragment StoreEntitySet="ProductStyle">
+                <ScalarProperty Name="P_num" ColumnName="P_num" />
+                <ScalarProperty Name="PStyle_num" ColumnName="PStyle_num" />
+                <ScalarProperty Name="PStyle_Name" ColumnName="PStyle_Name" />
+                <ScalarProperty Name="PStyle_Image" ColumnName="PStyle_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Score">
+            <EntityTypeMapping TypeName="ShoppingCartModel.Score">
+              <MappingFragment StoreEntitySet="Score">
+                <ScalarProperty Name="Score_ID" ColumnName="Score_ID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="M_num" ColumnName="M_num" />
+                <ScalarProperty Name="P_num" ColumnName="P_num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecondHandProduct">
+            <EntityTypeMapping TypeName="ShoppingCartModel.SecondHandProduct">
+              <MappingFragment StoreEntitySet="SecondHandProduct">
+                <ScalarProperty Name="SHP_num" ColumnName="SHP_num" />
+                <ScalarProperty Name="SHP_Name" ColumnName="SHP_Name" />
+                <ScalarProperty Name="SHP_Price" ColumnName="SHP_Price" />
+                <ScalarProperty Name="SHP_Info" ColumnName="SHP_Info" />
+                <ScalarProperty Name="SHP_Img" ColumnName="SHP_Img" />
+                <ScalarProperty Name="SHP_SellerName" ColumnName="SHP_SellerName" />
+                <ScalarProperty Name="SHP_SellerPhone" ColumnName="SHP_SellerPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecondHandProductRequire">
+            <EntityTypeMapping TypeName="ShoppingCartModel.SecondHandProductRequire">
+              <MappingFragment StoreEntitySet="SecondHandProductRequire">
+                <ScalarProperty Name="SHPR_num" ColumnName="SHPR_num" />
+                <ScalarProperty Name="SHPR_Name" ColumnName="SHPR_Name" />
+                <ScalarProperty Name="SHPR_Price" ColumnName="SHPR_Price" />
+                <ScalarProperty Name="SHPR_Info" ColumnName="SHPR_Info" />
+                <ScalarProperty Name="SHPR_Img" ColumnName="SHPR_Img" />
+                <ScalarProperty Name="SHPR_SellerName" ColumnName="SHPR_SellerName" />
+                <ScalarProperty Name="SHPR_SellerPhone" ColumnName="SHPR_SellerPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShoppingCartModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AboutUs">
+            <EntityTypeMapping TypeName="ShoppingCartModel.AboutUs">
+              <MappingFragment StoreEntitySet="AboutUs">
+                <ScalarProperty Name="Tital" ColumnName="Tital" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="ShoppingCartModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Tital" ColumnName="Tital" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
